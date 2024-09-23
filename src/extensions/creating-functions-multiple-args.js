@@ -53,15 +53,35 @@ function rewriteString(string, number) {
 
 function showNewTime(string, minutes) {
   const timeArray = string.split(':')
-  let existingHours = parseInt(timeArray[0])
-  let existingMinutes = parseInt(timeArray[1])
 
-  if (existingMinutes + minutes >= 60) {
-    existingMinutes -= 60
-    existingHours++
+  let existingHours = parseInt(timeArray[0])
+  let existingMinutes = parseInt(timeArray[1]) + minutes
+
+  while (existingMinutes >= 60) {
+    existingMinutes = existingMinutes - 60
+    if (existingHours === 23) {
+      existingHours = 0
+    } else {
+      existingHours++
+    }
   }
 
-  return '' + existingHours + ':' + existingMinutes
+  let existingMinutesString
+  let existingHoursString
+
+  if (existingMinutes < 10) {
+    existingMinutesString = '0' + existingMinutes.toString()
+  } else {
+    existingMinutesString = existingMinutes.toString()
+  }
+
+  if (existingHours === 0) {
+    existingHoursString = '0' + existingHours.toString()
+  } else {
+    existingHoursString = existingHours.toString()
+  }
+
+  return '' + existingHoursString + ':' + existingMinutesString
 }
 
 // TODO: change the exported value to be the name of the function you defined
